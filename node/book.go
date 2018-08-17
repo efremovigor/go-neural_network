@@ -1,11 +1,13 @@
-package form
+package node
+
+import "neural_network/bookForm"
 
 type Book struct {
     Form
 }
 
 func CreateBook() (book Book) {
-    book.init(bookCollectionProperties)
+    book.Init(bookForm.CollectionProperties)
     return
 }
 

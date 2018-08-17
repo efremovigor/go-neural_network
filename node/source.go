@@ -1,4 +1,4 @@
-package main
+package node
 
 import (
     "io/ioutil"
@@ -11,11 +11,8 @@ type Source struct {
 }
 
 type SourceEntity struct {
-    Data DataListEntity `json:"data"`
+    Data []DataEntity `json:"data"`
 }
-
-type DataListEntity []DataEntity
-
 
 type DataEntity struct {
     Properties map[string]bool `json:"properties"`
@@ -23,8 +20,8 @@ type DataEntity struct {
 }
 
 
-func (source Source) initDataSource() {
-    source.path = sourcePath
+func (source Source) InitDataSource(path string) {
+    source.path = path
     source.setEntity(source.loadFile())
 }
 
@@ -39,6 +36,6 @@ func (source Source) loadFile() []byte {
 func (source Source) setEntity(data []byte) {
     err := json.Unmarshal(data,&source.entity)
     if err != nil {
-        println(err)
+        panic(err)
     }
 }

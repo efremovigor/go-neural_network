@@ -1,4 +1,4 @@
-package form
+package girlForm
 
 const BeautifulFace = "beautiful_face"
 const VeryBigTits = "very_big_tits"
@@ -54,7 +54,7 @@ const DaughterOfMothersGirlfriend = "daughter_of_mother's_girlfriend"
 
 var simplyProperties = []string{BeautifulFace, Neat, Money, House, Car, RichParents, Smoke, Drink, Fitness, Snowboard, Bouldering, Student, Working, Developer, VideoGame, Swearing,LookAtMe}
 
-var titsProperties = []string{VeryBigTits, BigTits, SmallTits, NoTits,}
+var TitsProperties = []string{VeryBigTits, BigTits, SmallTits, NoTits,}
 
 var hairProperties = []string{LongHair, ShortHair, CrazyHair, Hairless,}
 
@@ -72,7 +72,7 @@ var clothesProperties = []string{VulgarlyClothes, HumbleClothes, ExpensiveClothe
 
 var actionProperties = []string{Dance, PassesBy, InNetwork, DaughterOfMothersGirlfriend}
 
-var girlCollectionProperties = append(append(append(append(append(append(append(append(append(
+var CollectionProperties = append(append(append(append(append(append(append(append(append(
     simplyProperties,
     titsProperties...),
     hairProperties...),

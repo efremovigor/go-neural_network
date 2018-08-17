@@ -1,4 +1,4 @@
-package form
+package bookForm
 
 //назначение
 var Business = "Business"
@@ -135,7 +135,7 @@ var ageBookProperties = []string{Kids, Teenagers, Youth, MiddleAged, Old}
 //существование любовной линии
 var existanceOfLoveLineBookProperties = []string{LoveLine, NoLoveLine, NotFixedLoveLine}
 
-var bookCollectionProperties = append(append(append(append(append(append(append(append(append(append(append(append(append(append(append(
+var CollectionProperties = append(append(append(append(append(append(append(append(append(append(append(append(append(append(append(
     simplyBookProperties,
     appointmentBookProperties...),
     reviewsBookProperties...),
