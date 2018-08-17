@@ -1,16 +1,24 @@
 package node
 
+import (
+    "neural_network/lib"
+    "encoding/json"
+)
+
 type Neuron struct {
     id    int
     Name  string
     State bool
 }
 
-func CreateNeuron(name string) *Neuron {
+func createNeuron(name string) *Neuron {
     return &Neuron{State: false, Name: name}
 }
 
 type Brain struct {
+    pathSource     string
+    pathMemory     string
+    memory         map[string]float64
     CurrentProcess BrainProcess
     Source         Source
 }
@@ -23,22 +31,27 @@ type BrainProcess struct {
     resultNeuron Neuron
 }
 
-func (b *Brain) init(path string)  {
+func (b *Brain) init() {
     b.Source = Source{}
-    b.Source.InitDataSource(path)
+    b.Source.initDataSource(b.pathSource)
+    b.initMemory()
     b.newProcess()
 }
 
-func (b *Brain) newProcess()  {
+func (b *Brain) newProcess() {
     b.CurrentProcess = BrainProcess{}
 }
 
-func NewBrain(path string) (brain Brain) {
-    brain = Brain{}
-    brain.init(path)
+func (b *Brain) initMemory() {
+    json.Unmarshal(lib.ReadFile(b.pathMemory),&b.memory)
+}
+
+func NewBrain(pathSource string, pathMemory string) (brain Brain) {
+    brain = Brain{pathSource: pathSource, pathMemory: pathMemory}
+    brain.init()
     return
 }
 
-func (b *Brain) Process()  {
+func (b *Brain) Process() {
 
 }

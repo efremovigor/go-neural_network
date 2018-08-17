@@ -1,8 +1,8 @@
 package node
 
 import (
-    "io/ioutil"
     "encoding/json"
+    "neural_network/lib"
 )
 
 type Source struct {
@@ -20,17 +20,9 @@ type DataEntity struct {
 }
 
 
-func (source Source) InitDataSource(path string) {
+func (source Source) initDataSource(path string) {
     source.path = path
-    source.setEntity(source.loadFile())
-}
-
-func (source Source) loadFile() []byte {
-    data, err := ioutil.ReadFile(source.path)
-    if err != nil {
-        panic(err)
-    }
-    return data
+    source.setEntity(lib.ReadFile(source.path))
 }
 
 func (source Source) setEntity(data []byte) {

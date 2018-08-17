@@ -6,6 +6,6 @@ import (
 
 func main() {
 
-    brain := node.NewBrain("data.json")
+    brain := node.NewBrain("data.json","memory.json")
     brain.Process()
 }

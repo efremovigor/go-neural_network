@@ -74,7 +74,7 @@ var actionProperties = []string{Dance, PassesBy, InNetwork, DaughterOfMothersGir
 
 var CollectionProperties = append(append(append(append(append(append(append(append(append(
     simplyProperties,
-    titsProperties...),
+    TitsProperties...),
     hairProperties...),
     bodyProperties...),
     colorHairProperties...),

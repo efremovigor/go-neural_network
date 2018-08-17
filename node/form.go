@@ -8,10 +8,10 @@ type Form struct {
 func (form *Form) Init(list []string) {
     form.Properties = make(map[string]*Neuron)
     for _, item := range list {
-        form.Properties[item] = CreateNeuron(item)
+        form.Properties[item] = createNeuron(item)
     }
 }
 
-func (form *Form) GetProperties() map[string]*Neuron {
+func (form *Form) getProperties() map[string]*Neuron {
     return form.Properties
 }
