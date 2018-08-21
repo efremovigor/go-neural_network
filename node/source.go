@@ -11,7 +11,7 @@ type Source struct {
 }
 
 type SourceEntity struct {
-    Data []DataEntity `json:"data"`
+    data []DataEntity `json:"data"`
 }
 
 type DataEntity struct {

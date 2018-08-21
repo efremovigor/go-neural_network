@@ -24,7 +24,7 @@ type Brain struct {
 }
 
 type BrainProcess struct {
-    entity       Form
+    Form         FormInterface
     Neuron       map[string]Neuron
     hideNeuron   map[string]Neuron
     weight       map[string]float64
@@ -43,7 +43,7 @@ func (b *Brain) newProcess() {
 }
 
 func (b *Brain) initMemory() {
-    json.Unmarshal(lib.ReadFile(b.pathMemory),&b.memory)
+    json.Unmarshal(lib.ReadFile(b.pathMemory), &b.memory)
 }
 
 func NewBrain(pathSource string, pathMemory string) (brain Brain) {
@@ -52,6 +52,10 @@ func NewBrain(pathSource string, pathMemory string) (brain Brain) {
     return
 }
 
-func (b *Brain) Process() {
+func (b *Brain) GetSourceList() []DataEntity {
+    return b.Source.entity.data
+}
 
+func (b *Brain) Process() {
+    b.CurrentProcess.form.AutoSetProperties()
 }

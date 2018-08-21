@@ -42,8 +42,8 @@ var Horror = "Horror"
 var Erotic = "Erotic"
 var NotFixed = "NotFixed"
 //язык
-var InEnglish = "InEnglish"
-var InRussian = "InRussian"
+var InEnglishLanguage = "InEnglishLanguage"
+var InRussianLanguage = "InRussianLanguage"
 var InOtherLanguage = "InOtherLanguage"
 //пол автора
 var MaleAuthor = "MaleAuthor"
@@ -88,67 +88,67 @@ var NoLoveLine = "NoLoveLine"
 var NotFixedLoveLine = "NotFixedLoveLine"
 
 //базовые
-var simplyBookProperties = []string{Famous}
+var SimplyBookProperties = []string{Famous}
 
 //назначение
-var appointmentBookProperties = []string{Business, Study, FreeTimeSpending}
+var AppointmentBookProperties = []string{Business, Study, FreeTimeSpending}
 
 //отзывы
-var reviewsBookProperties = []string{NoReview, BadReview, GoodReview}
+var ReviewsBookProperties = []string{NoReview, BadReview, GoodReview}
 
 //формат
-var formatBookProperties = []string{SeparateBook, SeriesOfBooks, SeriesOfSmallStories}
+var FormatBookProperties = []string{SeparateBook, SeriesOfBooks, SeriesOfSmallStories}
 
 //размер
-var sizeBookProperties = []string{Long, Medium, Short}
+var SizeBookProperties = []string{Long, Medium, Short}
 
 //способ организации речи
-var wayOfSpeechOrganizationBookProperties = []string{Poem, Prose}
+var WayOfSpeechOrganizationBookProperties = []string{Poem, Prose}
 
 //жанр по-форме
-var genreByFormBookProperties = []string{Biography, ShortStory, Story, Novel, Play}
+var GenreByFormBookProperties = []string{Biography, ShortStory, Story, Novel, Play}
 
 //жанр по-содержанию
-var genreByContentBookProperties = []string{Tragedy, TragicComedy, Fantasy, Mythology, Mystery, ScienceFiction, Drama, Romance, Adventure, Satire, Horror, Erotic, NotFixed}
+var GenreByContentBookProperties = []string{Tragedy, TragicComedy, Fantasy, Mythology, Mystery, ScienceFiction, Drama, Romance, Adventure, Satire, Horror, Erotic, NotFixed}
 
 //язык
-var languageBookProperties = []string{InEnglish, InRussian, InOtherLanguage}
+var LanguageBookProperties = []string{InEnglishLanguage, InRussianLanguage, InOtherLanguage}
 
 //пол автора
-var sexOfAuthorBookProperties = []string{MaleAuthor, FemaleAuthor, Another}
+var SexOfAuthorBookProperties = []string{MaleAuthor, FemaleAuthor, Another}
 
 //национальная принадлежность автора
-var authorsNationalityBookProperties = []string{RussianAuthor, BritishAuthor, OtherEuropeanAuthor, NorthAmericanAuthor, AsianAuthor, OtherAuthor}
+var AuthorsNationalityBookProperties = []string{RussianAuthor, BritishAuthor, OtherEuropeanAuthor, NorthAmericanAuthor, AsianAuthor, OtherAuthor}
 
 //Период написания
-var theTimeOfWritingBookProperties = []string{WrittenBefore16thCentury, WrittenIn16thCentury, WrittenIn17thCentury, WrittenIn18thCentury, WrittenIn19thCentury, WrittenIn20thCentury, WrittenIn21stCentury}
+var TheTimeOfWritingBookProperties = []string{WrittenBefore16thCentury, WrittenIn16thCentury, WrittenIn17thCentury, WrittenIn18thCentury, WrittenIn19thCentury, WrittenIn20thCentury, WrittenIn21stCentury}
 
 //эпоха, о которой идет речь
-var theEpochOfStoryBookProperties = []string{BC, Before18thCentury, Century18th, Century19th, Century20th, Present, Future}
+var TheEpochOfStoryBookProperties = []string{BC, Before18thCentury, Century18th, Century19th, Century20th, Present, Future}
 
 //пол главного героя
-var sexOfMainCharacterBookProperties = []string{MaleMainCharacter, FemaleMainCharacter, MaleAndFemaleMainCharacters}
+var SexOfMainCharacterBookProperties = []string{MaleMainCharacter, FemaleMainCharacter, MaleAndFemaleMainCharacters}
 
 //возраст
-var ageBookProperties = []string{Kids, Teenagers, Youth, MiddleAged, Old}
+var AgeBookProperties = []string{Kids, Teenagers, Youth, MiddleAged, Old}
 
 //существование любовной линии
-var existanceOfLoveLineBookProperties = []string{LoveLine, NoLoveLine, NotFixedLoveLine}
+var ExistanceOfLoveLineBookProperties = []string{LoveLine, NoLoveLine, NotFixedLoveLine}
 
 var CollectionProperties = append(append(append(append(append(append(append(append(append(append(append(append(append(append(append(
-    simplyBookProperties,
-    appointmentBookProperties...),
-    reviewsBookProperties...),
-    formatBookProperties...),
-    sizeBookProperties...),
-    wayOfSpeechOrganizationBookProperties...),
-    genreByFormBookProperties...),
-    genreByContentBookProperties...),
-    languageBookProperties...),
-    sexOfAuthorBookProperties...),
-    authorsNationalityBookProperties...),
-    theTimeOfWritingBookProperties...),
-    theEpochOfStoryBookProperties...),
-    sexOfMainCharacterBookProperties...),
-    ageBookProperties...),
-    existanceOfLoveLineBookProperties...)
+    SimplyBookProperties,
+    AppointmentBookProperties...),
+    ReviewsBookProperties...),
+    FormatBookProperties...),
+    SizeBookProperties...),
+    WayOfSpeechOrganizationBookProperties...),
+    GenreByFormBookProperties...),
+    GenreByContentBookProperties...),
+    LanguageBookProperties...),
+    SexOfAuthorBookProperties...),
+    AuthorsNationalityBookProperties...),
+    TheTimeOfWritingBookProperties...),
+    TheEpochOfStoryBookProperties...),
+    SexOfMainCharacterBookProperties...),
+    AgeBookProperties...),
+    ExistanceOfLoveLineBookProperties...)
