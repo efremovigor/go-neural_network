@@ -58,7 +58,7 @@ func (b *Brain) GetSourceList() []DataEntity {
 }
 
 func (b *Brain) Process() {
-    //b.CurrentProcess.Form.AutoSetProperties()
+    b.CurrentProcess.Form.AutoSetProperties()
 }
 
 func NewBrain(pathSource string, pathMemory string) (brain Brain) {

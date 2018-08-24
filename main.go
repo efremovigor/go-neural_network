@@ -15,4 +15,3 @@ func main() {
     }
     brain.Process()
 }
-//FreeTimeSpending, inrussianlanguage,prose, LoveLine
