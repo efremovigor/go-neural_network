@@ -11,7 +11,7 @@ type Source struct {
 }
 
 type SourceEntity struct {
-    data []DataEntity `json:"data"`
+    Data []DataEntity `json:"data"`
 }
 
 type DataEntity struct {
@@ -20,12 +20,12 @@ type DataEntity struct {
 }
 
 
-func (source Source) initDataSource(path string) {
+func (source *Source) initDataSource(path string) {
     source.path = path
     source.setEntity(lib.ReadFile(source.path))
 }
 
-func (source Source) setEntity(data []byte) {
+func (source *Source) setEntity(data []byte) {
     err := json.Unmarshal(data,&source.entity)
     if err != nil {
         panic(err)

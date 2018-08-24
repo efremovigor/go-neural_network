@@ -2,8 +2,10 @@ package node
 
 type FormInterface interface {
     Init(list []string)
-    getProperties() map[string]*Neuron
+    GetProperties() map[string]*Neuron
     setDefault(list []string,key string)
+    SetProperty(name string,value bool)
+    AutoSetProperties()
 }
 
 type Form struct {
@@ -18,7 +20,7 @@ func (form *Form) Init(list []string) {
     }
 }
 
-func (form *Form) getProperties() map[string]*Neuron {
+func (form *Form) GetProperties() map[string]*Neuron {
     return form.Properties
 }
 
