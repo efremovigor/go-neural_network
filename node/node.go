@@ -39,22 +39,19 @@ func createNeuron(name string) *Neuron {
   Source - данные для прогона сети
 */
 type Brain struct {
-	pathSource     string
-	pathMemory     string
-	memory         MemoryData
+	pathSource string
+	pathMemory string
+	memory     struct {
+		Weight map[string]float64 `json:"weight"`
+		Neuron struct {
+			Input  map[string]string `json:"input"`
+			Hide   []string          `json:"hide"`
+			Result string            `json:"result"`
+		} `json:"neuron"`
+	}
+
 	CurrentProcess BrainProcess
 	Source         Source
-}
-
-type MemoryData struct {
-	weight  map[string]float64 `json:"weight"`
-	neurons MemoryNeurons      `json:"neurons"`
-}
-
-type MemoryNeurons struct {
-	input  map[string]string `json:"input"`
-	hide   []string          `json:"hide"`
-	result string            `json:"result"`
 }
 
 /**
