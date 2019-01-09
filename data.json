@@ -2,24 +2,24 @@
   "data": [
     {
       "properties": {
-        "FreeTimeSpending": true,
-        "Famous": true,
-        "GoodReview": true,
-        "SeparateBook": true,
-        "Medium": true,
-        "Prose": true,
-        "Novel": true,
-        "Satire": true,
-        "InRussianLanguage": true,
-        "MaleAuthor": true,
-        "OtherEuropeanAuthor": true,
-        "WrittenIn18thCentury": true,
-        "Century18th": true,
-        "MaleAndFemaleMainCharacters": true,
-        "Youth": true,
-        "LoveLine": true
+        "FreeTimeSpending": 1,
+        "Famous": 1,
+        "GoodReview": 1,
+        "SeparateBook": 1,
+        "Medium": 1,
+        "Prose": 1,
+        "Novel": 1,
+        "Satire": 1,
+        "InRussianLanguage": 1,
+        "MaleAuthor": 1,
+        "OtherEuropeanAuthor": 1,
+        "WrittenIn18thCentury": 1,
+        "Century18th": 1,
+        "MaleAndFemaleMainCharacters": 1,
+        "Youth": 1,
+        "LoveLine": 1
       },
-      "result": true
+      "result": 1
     }
   ]
 }

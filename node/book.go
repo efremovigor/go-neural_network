@@ -1,24 +1,24 @@
 package node
 
-import "neural_network/bookForm"
+import "go-neural_network/bookForm"
 
 type Book struct {
-    Form
+	Form
 }
 
-func CreateBook() (book FormInterface) {
-    book = &Book{}
-    book.Init(bookForm.CollectionProperties)
-    return
-}
-
-func (book *Book) SetProperty(name string, value bool) {
-    book.Properties[name].State = value
+func CreateBook(entity DataEntity) (book FormInterface) {
+	book = &Book{}
+	book.Init(bookForm.CollectionProperties)
+	for key, value := range entity.Properties {
+		book.SetProperty(key, value)
+	}
+	book.SetResult(entity.Result)
+	return
 }
 
 func (book *Book) AutoSetProperties() {
-    book.setDefault(bookForm.AppointmentBookProperties, bookForm.FreeTimeSpending)
-    book.setDefault(bookForm.LanguageBookProperties, bookForm.InRussianLanguage)
-    book.setDefault(bookForm.WayOfSpeechOrganizationBookProperties, bookForm.Prose)
-    book.setDefault(bookForm.ExistanceOfLoveLineBookProperties, bookForm.LoveLine)
+	book.setDefault(bookForm.AppointmentBookProperties, bookForm.FreeTimeSpending)
+	book.setDefault(bookForm.LanguageBookProperties, bookForm.InRussianLanguage)
+	book.setDefault(bookForm.WayOfSpeechOrganizationBookProperties, bookForm.Prose)
+	book.setDefault(bookForm.ExistanceOfLoveLineBookProperties, bookForm.LoveLine)
 }

@@ -1,7 +1,21 @@
 {
-  "qweqweqwe": 0.123123,
-  "qweqweqwedata": 0.123123,
-  "qweqweqwe1": 0.123123,
-  "qweqweqwe2": 0.123123,
-  "qweqweqwe3": 0.123123
+  "weight": {
+    "111222a87f71972df9992f0bd9d133fb-333222a87f71972df9992f0bd9d133fb": 0.123,
+    "111222a87f71972df9992f0bd9d133fb-444222a87f71972df9992f0bd9d133fb": 0.123,
+    "111222a87f71972df9992f0bd9d133fb-555222a87f71972df9992f0bd9d133fb": 0.123,
+    "111222a87f71972df9992f0bd9d133fb-666222a87f71972df9992f0bd9d133fb": 0.123
+  },
+  "neuron": {
+    "input": {
+      "FreeTimeSpending": "111222a87f71972df9992f0bd9d133fb"
+    },
+    "hide": [
+      "333222a87f71972df9992f0bd9d133fb",
+      "444222a87f71972df9992f0bd9d133fb",
+      "555222a87f71972df9992f0bd9d133fb",
+      "666222a87f71972df9992f0bd9d133fb"
+    ],
+    "result": "000222a87f71972df9992f0bd9d133fb"
+  }
+
 }

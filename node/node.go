@@ -1,75 +1,106 @@
 package node
 
 import (
-    "neural_network/lib"
-    "encoding/json"
-    "crypto/md5"
-    "encoding/hex"
-    "time"
-    "strconv"
+	"crypto/md5"
+	"encoding/hex"
+	"encoding/json"
+	"go-neural_network/lib"
+	"strconv"
+	"time"
 )
 
+/**
+  Id - уникальный id неирона
+  Name - название неирона
+  Value - значение неирона
+*/
 type Neuron struct {
-    Id    string
-    Name  string
-    State bool
+	Id    string
+	Name  string
+	Value int64
 }
 
+/**
+  Создание пустого неирона по имени
+*/
 func createNeuron(name string) *Neuron {
-    h := md5.New()
-    h.Write([]byte(name + strconv.FormatInt(time.Now().Unix(),10)))
-    id := hex.EncodeToString(h.Sum(nil))
+	h := md5.New()
+	h.Write([]byte(name + strconv.FormatInt(time.Now().Unix(), 10)))
+	id := hex.EncodeToString(h.Sum(nil))
 
-    return &Neuron{State: false, Name: name, Id:id[:4]}
+	return &Neuron{Value: 0, Name: name, Id: id}
 }
 
+/**
+  pathSource - откуда берутся данные по обучению
+  pathMemory - место хранения состояния сети
+  memory - данные из памяти  - ключ неирона -> текущий вес
+  CurrentProcess - текущий процесс прогона сети
+  Source - данные для прогона сети
+*/
 type Brain struct {
-    pathSource     string
-    pathMemory     string
-    memory         map[string]float64
-    CurrentProcess BrainProcess
-    Source         Source
+	pathSource     string
+	pathMemory     string
+	memory         MemoryData
+	CurrentProcess BrainProcess
+	Source         Source
 }
 
+type MemoryData struct {
+	weight  map[string]float64 `json:"weight"`
+	neurons MemoryNeurons      `json:"neurons"`
+}
+
+type MemoryNeurons struct {
+	input  map[string]string `json:"input"`
+	hide   []string          `json:"hide"`
+	result string            `json:"result"`
+}
+
+/**
+  Form - все входящие данные для прогона сети
+  input - неироны входящие
+  hide - неироны скрытого уровня
+  weight - ключи input.neuron.id + hide.neuron.id или hide.neuron.id + result.neuron.id
+*/
 type BrainProcess struct {
-    Form         FormInterface
-    Neuron       map[string]Neuron
-    hideNeuron   map[string]Neuron
-    weight       map[string]float64
-    resultNeuron Neuron
+	Form   FormInterface
+	input  map[string]Neuron
+	hide   map[string]Neuron
+	weight map[string]float64
+	result Neuron
 }
 
-func (b *Brain) init() {
-    b.Source = Source{}
-    b.Source.initDataSource(b.pathSource)
-    b.initMemory()
+func (this *Brain) init() {
+	this.Source = Source{}
+	this.Source.initDataSource(this.pathSource)
+	this.initMemory()
 }
 
-func (b *Brain) newProcess(form FormInterface) {
-    b.CurrentProcess = BrainProcess{Form: form}
+func (this *Brain) newProcess(form FormInterface) {
+	this.CurrentProcess = BrainProcess{Form: form}
+
 }
 
-func (b *Brain) initMemory() {
-    json.Unmarshal(lib.ReadFile(b.pathMemory), &b.memory)
+func (this *Brain) initMemory() {
+	json.Unmarshal(lib.ReadFile(this.pathMemory), &this.memory)
 }
 
-func (b *Brain) GetSourceList() []DataEntity {
-    return b.Source.entity.Data
+func (this *Brain) GetSourceList() []DataEntity {
+	return this.Source.entity.Data
 }
 
-func (b *Brain) Process() {
-    b.CurrentProcess.Form.AutoSetProperties()
+func (this *Brain) Process() {
+	this.CurrentProcess.Form.AutoSetProperties()
+	//this.CurrentProcess.initInputNeural()
 }
 
 func NewBrain(pathSource string, pathMemory string) (brain Brain) {
-    brain = Brain{pathSource: pathSource, pathMemory: pathMemory}
-    brain.init()
-    return
+	brain = Brain{pathSource: pathSource, pathMemory: pathMemory}
+	brain.init()
+	return
 }
 
-func (b *Brain) InitNextSource(form FormInterface, entity DataEntity) {
-    b.newProcess(form)
-    for key, value := range entity.Properties {
-        form.SetProperty(key, value)
-    }
+func (this *Brain) InitNextSource(form FormInterface) {
+	this.newProcess(form)
 }

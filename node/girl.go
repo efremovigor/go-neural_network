@@ -1,25 +1,24 @@
 package node
 
-import "neural_network/girlForm"
+import "go-neural_network/girlForm"
 
 type Girl struct {
-    Form
+	Form
 }
 
 func CreateGirl() (girl Girl) {
-    girl.Init(girlForm.CollectionProperties)
-    return
+	girl.Init(girlForm.CollectionProperties)
+	return
 }
 
-
 func (girl *Girl) SetHair(key string) {
-    for _, value := range girlForm.TitsProperties {
-        if value == key {
+	for _, value := range girlForm.TitsProperties {
+		if value == key {
 
-            continue
-        }
-        if neuron, ok := girl.Properties[value]; ok {
-            neuron.State = true
-        }
-    }
+			continue
+		}
+		if neuron, ok := girl.Properties[value]; ok {
+			neuron.Value = 1
+		}
+	}
 }
