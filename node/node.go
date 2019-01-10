@@ -68,6 +68,19 @@ type BrainProcess struct {
 	result Neuron
 }
 
+func (process *BrainProcess) initMemoryNeuron() {
+
+}
+
+func (process *BrainProcess) initInputNeural() {
+	for _, value := range process.Form.GetProperties() {
+		if val, ok := process.input[value.Id]; ok {
+			//do something here
+		}
+
+	}
+}
+
 func (this *Brain) init() {
 	this.Source = Source{}
 	this.Source.initDataSource(this.pathSource)
@@ -89,7 +102,7 @@ func (this *Brain) GetSourceList() []DataEntity {
 
 func (this *Brain) Process() {
 	this.CurrentProcess.Form.AutoSetProperties()
-	//this.CurrentProcess.initInputNeural()
+	this.CurrentProcess.initInputNeural()
 }
 
 func NewBrain(pathSource string, pathMemory string) (brain Brain) {
@@ -100,4 +113,6 @@ func NewBrain(pathSource string, pathMemory string) (brain Brain) {
 
 func (this *Brain) InitNextSource(form FormInterface) {
 	this.newProcess(form)
+	this.CurrentProcess.initMemoryNeuron()
+
 }

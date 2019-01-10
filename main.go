@@ -14,5 +14,4 @@ func main() {
 		brain.InitNextSource(node.CreateBook(entity))
 		brain.Process()
 	}
-
 }
