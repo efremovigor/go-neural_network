@@ -68,10 +68,23 @@ type BrainProcess struct {
 	result Neuron
 }
 
-func (process *BrainProcess) initMemoryNeuron() {
-	if len(process.hide) == 0 {
+func (this *Brain) initMemoryInProcess() {
 
+	if len(this.CurrentProcess.hide) == 0 {
+		this.CurrentProcess.generateHideLayer()
 	}
+
+	if len(this.CurrentProcess.weight) == 0 {
+		this.CurrentProcess.generateWeight()
+	}
+}
+
+func (process *BrainProcess) generateHideLayer() {
+
+}
+
+func (process *BrainProcess) generateWeight() {
+
 }
 
 func (process *BrainProcess) initInputNeural() {
@@ -119,6 +132,6 @@ func NewBrain(pathSource string, pathMemory string) (brain Brain) {
 
 func (this *Brain) InitNextSource(form FormInterface) {
 	this.newProcess(form)
-	this.CurrentProcess.initMemoryNeuron()
+	this.initMemoryInProcess()
 
 }
