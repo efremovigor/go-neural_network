@@ -69,15 +69,21 @@ type BrainProcess struct {
 }
 
 func (process *BrainProcess) initMemoryNeuron() {
+	if len(process.hide) == 0 {
 
+	}
 }
 
 func (process *BrainProcess) initInputNeural() {
 	for _, value := range process.Form.GetProperties() {
-		if val, ok := process.input[value.Id]; ok {
-			//do something here
+		if val, ok := process.input[value.Name]; ok {
+			if value.Id != val.Id {
+				panic("Neuron's hash are not identical")
+			}
+			val.Value = value.Value
+		} else {
+			process.input[value.Name] = *value
 		}
-
 	}
 }
 
@@ -88,7 +94,7 @@ func (this *Brain) init() {
 }
 
 func (this *Brain) newProcess(form FormInterface) {
-	this.CurrentProcess = BrainProcess{Form: form}
+	this.CurrentProcess = BrainProcess{Form: form, input: map[string]Neuron{}, hide: map[string]Neuron{}, weight: map[string]float64{}}
 
 }
 
