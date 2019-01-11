@@ -87,7 +87,7 @@ func (process *BrainProcess) generateWeight() {
 		}
 	}
 	for hideKey := range process.hide {
-
+		process.weight[hideKey+"-"+process.result.Id] = lib.RandFloat(0.0001, 0.1)
 	}
 }
 
@@ -99,7 +99,7 @@ func (process *BrainProcess) initInputNeural() {
 			}
 			val.Value = value.Value
 		} else {
-			process.input[value.Name] = *value
+			process.input[value.Id] = *value
 		}
 	}
 }
@@ -121,6 +121,20 @@ func (process *BrainProcess) estimationHideLayer() {
 		hideNeuron.Value = math.Floor(1/(1+math.Pow(math.E, -total))*10000) / 10000
 		process.hide[hideKey] = hideNeuron
 	}
+}
+
+func (process *BrainProcess) estimationResultLayer() {
+	var weight float64 = 0
+	var total float64 = 0
+	for hideKey, hideNeuron := range process.hide {
+		if _, ok := process.weight[hideKey+"-"+process.result.Id]; ok {
+			weight = process.weight[hideKey+"-"+process.result.Id]
+		} else {
+			panic("Invalid the key of weight")
+		}
+		total += weight * float64(hideNeuron.Value)
+	}
+	process.result.Value = math.Floor(1/(1+math.Pow(math.E, -total))*10000) / 10000
 }
 
 func (brain *Brain) init() {
@@ -148,6 +162,7 @@ func (brain *Brain) GetSourceList() []DataEntity {
 
 func (brain *Brain) Execute() {
 	brain.getCurrentProcess().estimationHideLayer()
+	brain.getCurrentProcess().estimationResultLayer()
 }
 
 func NewBrain(pathSource string, pathMemory string) (brain Brain) {
@@ -173,6 +188,5 @@ func (brain *Brain) InitNextSource(form FormInterface) {
 	if len(brain.getCurrentProcess().weight) == 0 {
 		brain.getCurrentProcess().generateWeight()
 	}
-
 
 }
