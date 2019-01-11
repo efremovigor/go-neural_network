@@ -4,14 +4,14 @@ type FormInterface interface {
 	Init(list []string)
 	GetProperties() map[string]*Neuron
 	setDefault(list []string, key string)
-	SetProperty(name string, value int64)
-	SetResult(value int64)
+	SetProperty(name string, value float64)
+	SetResult(value float64)
 	AutoSetProperties()
 }
 
 type Form struct {
 	Properties map[string]*Neuron
-	Result     int64
+	Result     float64
 }
 
 func (form *Form) Init(list []string) {
@@ -42,10 +42,10 @@ func (form *Form) setDefault(list []string, key string) {
 	}
 }
 
-func (form *Form) SetProperty(name string, value int64) {
+func (form *Form) SetProperty(name string, value float64) {
 	form.Properties[name].Value = value
 }
 
-func (form *Form) SetResult(value int64) {
+func (form *Form) SetResult(value float64) {
 	form.Result = value
 }

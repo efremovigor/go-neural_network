@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"go-neural_network/lib"
+	"math"
 	"strconv"
 	"time"
 )
@@ -17,7 +18,7 @@ import (
 type Neuron struct {
 	Id    string
 	Name  string
-	Value int64
+	Value float64
 }
 
 /**
@@ -35,7 +36,7 @@ func createNeuron(name string) *Neuron {
   pathSource - откуда берутся данные по обучению
   pathMemory - место хранения состояния сети
   memory - данные из памяти  - ключ неирона -> текущий вес
-  CurrentProcess - текущий процесс прогона сети
+  Process - текущий процесс прогона сети
   Source - данные для прогона сети
 */
 type Brain struct {
@@ -50,8 +51,8 @@ type Brain struct {
 		} `json:"neuron"`
 	}
 
-	CurrentProcess BrainProcess
-	Source         Source
+	Process *BrainProcess
+	Source  Source
 }
 
 /**
@@ -68,23 +69,26 @@ type BrainProcess struct {
 	result Neuron
 }
 
-func (this *Brain) initMemoryInProcess() {
+func (brain *Brain) initMemoryInProcess() {
 
-	if len(this.CurrentProcess.hide) == 0 {
-		this.CurrentProcess.generateHideLayer()
-	}
-
-	if len(this.CurrentProcess.weight) == 0 {
-		this.CurrentProcess.generateWeight()
-	}
 }
 
-func (process *BrainProcess) generateHideLayer() {
-
+func (process *BrainProcess) generateHideLayer(count int) {
+	for i := 0; i < count; i++ {
+		newNeuron := createNeuron(lib.RandStringBytes(8))
+		process.hide[newNeuron.Id] = *newNeuron
+	}
 }
 
 func (process *BrainProcess) generateWeight() {
+	for inputKey := range process.input {
+		for hideKey := range process.hide {
+			process.weight[inputKey+"-"+hideKey] = lib.RandFloat(0.0001, 0.1)
+		}
+	}
+	for hideKey := range process.hide {
 
+	}
 }
 
 func (process *BrainProcess) initInputNeural() {
@@ -100,28 +104,50 @@ func (process *BrainProcess) initInputNeural() {
 	}
 }
 
-func (this *Brain) init() {
-	this.Source = Source{}
-	this.Source.initDataSource(this.pathSource)
-	this.initMemory()
+func (process *BrainProcess) estimationHideLayer() {
+	var weight float64
+	var total float64
+	for hideKey, hideNeuron := range process.hide {
+		weight = 0
+		total = 0
+		for inputKey, inputNeuron := range process.input {
+			if _, ok := process.weight[inputKey+"-"+hideKey]; ok {
+				weight = process.weight[inputKey+"-"+hideKey]
+			} else {
+				panic("Invalid the key of weight")
+			}
+			total += weight * float64(inputNeuron.Value)
+		}
+		hideNeuron.Value = math.Floor(1/(1+math.Pow(math.E, -total))*10000) / 10000
+		process.hide[hideKey] = hideNeuron
+	}
 }
 
-func (this *Brain) newProcess(form FormInterface) {
-	this.CurrentProcess = BrainProcess{Form: form, input: map[string]Neuron{}, hide: map[string]Neuron{}, weight: map[string]float64{}}
+func (brain *Brain) init() {
+	brain.Source = Source{}
+	brain.Source.initDataSource(brain.pathSource)
+	brain.initMemory()
+}
+
+func (brain *Brain) getCurrentProcess() *BrainProcess {
+	return brain.Process
+}
+
+func (brain *Brain) newProcess(form FormInterface) {
+	brain.Process = &BrainProcess{Form: form, input: map[string]Neuron{}, hide: map[string]Neuron{}, weight: map[string]float64{}}
 
 }
 
-func (this *Brain) initMemory() {
-	json.Unmarshal(lib.ReadFile(this.pathMemory), &this.memory)
+func (brain *Brain) initMemory() {
+	_ = json.Unmarshal(lib.ReadFile(brain.pathMemory), &brain.memory)
 }
 
-func (this *Brain) GetSourceList() []DataEntity {
-	return this.Source.entity.Data
+func (brain *Brain) GetSourceList() []DataEntity {
+	return brain.Source.entity.Data
 }
 
-func (this *Brain) Process() {
-	this.CurrentProcess.Form.AutoSetProperties()
-	this.CurrentProcess.initInputNeural()
+func (brain *Brain) Execute() {
+	brain.getCurrentProcess().estimationHideLayer()
 }
 
 func NewBrain(pathSource string, pathMemory string) (brain Brain) {
@@ -130,8 +156,23 @@ func NewBrain(pathSource string, pathMemory string) (brain Brain) {
 	return
 }
 
-func (this *Brain) InitNextSource(form FormInterface) {
-	this.newProcess(form)
-	this.initMemoryInProcess()
+func (brain *Brain) InitNextSource(form FormInterface) {
+	brain.newProcess(form)
+	brain.initMemoryInProcess()
+	brain.getCurrentProcess().Form.AutoSetProperties()
+	brain.getCurrentProcess().initInputNeural()
+
+	if len(brain.getCurrentProcess().hide) == 0 {
+		brain.getCurrentProcess().generateHideLayer(len(brain.getCurrentProcess().input))
+	}
+
+	if brain.getCurrentProcess().result.Id == "" {
+		brain.getCurrentProcess().result = *createNeuron(lib.RandStringBytes(8))
+	}
+
+	if len(brain.getCurrentProcess().weight) == 0 {
+		brain.getCurrentProcess().generateWeight()
+	}
+
 
 }

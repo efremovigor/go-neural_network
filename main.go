@@ -12,6 +12,6 @@ func main() {
 	brain := node.NewBrain(source, memory)
 	for _, entity := range brain.GetSourceList() {
 		brain.InitNextSource(node.CreateBook(entity))
-		brain.Process()
+		brain.Execute()
 	}
 }

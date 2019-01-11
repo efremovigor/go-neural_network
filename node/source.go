@@ -7,16 +7,14 @@ import (
 
 type Source struct {
 	path   string
-	entity SourceEntity
-}
-
-type SourceEntity struct {
-	Data []DataEntity `json:"data"`
+	entity struct {
+		Data []DataEntity `json:"data"`
+	}
 }
 
 type DataEntity struct {
-	Properties map[string]int64 `json:"properties"`
-	Result     int64            `json:"result"`
+	Properties map[string]float64 `json:"properties"`
+	Result     float64            `json:"result"`
 }
 
 func (source *Source) initDataSource(path string) {
