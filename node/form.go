@@ -6,6 +6,7 @@ type FormInterface interface {
 	setDefault(list []string, key string)
 	SetProperty(name string, value float64)
 	SetResult(value float64)
+	GetResult() float64
 	AutoSetProperties()
 }
 
@@ -48,4 +49,8 @@ func (form *Form) SetProperty(name string, value float64) {
 
 func (form *Form) SetResult(value float64) {
 	form.Result = value
+}
+
+func (form *Form) GetResult() float64 {
+	return form.Result
 }

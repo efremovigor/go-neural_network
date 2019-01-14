@@ -10,6 +10,8 @@ import (
 	"time"
 )
 
+const learningRate = 0.1
+
 /**
   Id - уникальный id неирона
   Name - название неирона
@@ -143,13 +145,16 @@ func (brain *Brain) init() {
 	brain.initMemory()
 }
 
+func (brain *Brain) getLearningRate() float64 {
+	return learningRate
+}
+
 func (brain *Brain) getCurrentProcess() *BrainProcess {
 	return brain.Process
 }
 
 func (brain *Brain) newProcess(form FormInterface) {
 	brain.Process = &BrainProcess{Form: form, input: map[string]Neuron{}, hide: map[string]Neuron{}, weight: map[string]float64{}}
-
 }
 
 func (brain *Brain) initMemory() {
@@ -163,6 +168,20 @@ func (brain *Brain) GetSourceList() []DataEntity {
 func (brain *Brain) Execute() {
 	brain.getCurrentProcess().estimationHideLayer()
 	brain.getCurrentProcess().estimationResultLayer()
+}
+
+func (brain *Brain) BackPropagation() {
+	process := brain.getCurrentProcess()
+	result := process.result.Value
+	deltaWeight := (result - process.Form.GetResult()) * (result * (1 - result))
+	for hideKey, hideNeuron := range process.hide {
+		weight := process.weight[hideKey+"-"+process.result.Id] - (hideNeuron.Value * brain.getLearningRate() * deltaWeight)
+		process.weight[hideKey+"-"+process.result.Id] = weight
+		hideDeltaWeight := (weight * deltaWeight) * (result * (1 - result))
+		for inputKey, inputNeuron := range process.input {
+			process.weight[inputKey+"-"+hideKey] = process.weight[inputKey+"-"+hideKey] - (inputNeuron.Value * brain.getLearningRate() * hideDeltaWeight)
+		}
+	}
 }
 
 func NewBrain(pathSource string, pathMemory string) (brain Brain) {

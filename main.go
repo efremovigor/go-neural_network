@@ -13,5 +13,6 @@ func main() {
 	for _, entity := range brain.GetSourceList() {
 		brain.InitNextSource(node.CreateBook(entity))
 		brain.Execute()
+		brain.BackPropagation()
 	}
 }
